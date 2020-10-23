@@ -39,46 +39,47 @@ const utils = {
 	},
 };
 
+class StarsDisplay extends React.Component {
+	render() {
+		return (
+			<div className="left">
+				{utils.range(1, this.props.starsToDisplay).map(id => <div key={id} className="star" />)}
+			</div>
+		);
+	}
+}
+
+class PlayNumbers extends React.Component {
+	onButtonClick = (numberClicked) => {
+		console.log(numberClicked.generatedNumber);
+	}
+
+	render() {
+		return (
+			<div className="right">
+				{
+					utils.range(1, 9).map
+						(
+							generatedNumber => <button onClick={() => this.onButtonClick({ generatedNumber })} key={generatedNumber} className="number">{generatedNumber}</button>
+						)
+				}
+			</div>
+		);
+	};
+}
+
 function App() {
+	const startToDisplay = utils.random(1, 9);
 	return (
 		<div className="game">
 			<div className="help">
 				Pick 1 or more numbers that sum to the number of stars
-      </div>
+			</div>
 			<div className="body">
-				<div className="left">
-					<div className="star" />
-					<div className="star" />
-					<div className="star" />
-					<div className="star" />
-					<div className="star" />
-					<div className="star" />
-					<div className="star" />
-					<div className="star" />
-					<div className="star" />
-				</div>
-				<div className="right">
-					<button className="number">1</button>
-					<button className="number">2</button>
-					<button className="number">3</button>
-					<button className="number">4</button>
-					<button className="number">5</button>
-					<button className="number">6</button>
-					<button className="number">7</button>
-					<button className="number">8</button>
-					<button className="number">9</button>
-				</div>
+				<StarsDisplay starsToDisplay={startToDisplay} />
+				<PlayNumbers />
 			</div>
 			<div className="timer">Time Remaining: 10</div>
-
-			<a
-				className="App-link"
-				href="https://reactjs.org"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				Learn React
-        </a>
 		</div>
 	);
 }
